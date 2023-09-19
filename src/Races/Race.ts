@@ -1,5 +1,9 @@
 export default abstract class Race {
-  constructor(protected _name: string, protected _dexterity: number) { }
+  constructor(
+    protected _name: string,
+    protected _dexterity: number,
+  ) { }
+
   static createdRacesInstances():number {
     throw new Error('Not implemented');
   }
