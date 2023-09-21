@@ -4,13 +4,14 @@ import Race, { Elf } from './Races';
 import Fighter from './Fighter';
 import getRandomInt from './utils';
 import { Mage } from './Archetypes';
+import SimpleFighter from './Fighter/SimpleFighter';
 
 const drainLife = (
   amount: number,
   strength: number,
-  enemy: Fighter,
+  enemy: SimpleFighter,
 ): number => {
-  const damage = Math.ceil(amount * 0.5) * strength - enemy.defense;
+  const damage = Math.ceil(amount * 0.5) * strength;
   enemy.receiveDamage(damage);
   enemy.receiveDamage(damage);
   return damage;
@@ -18,9 +19,9 @@ const drainLife = (
 
 const thunderBolt = (
   strength: number, 
-  enemy: Fighter,
+  enemy: SimpleFighter,
 ): void => {
-  enemy.receiveDamage(strength * getRandomInt(1, 3) - enemy.defense);
+  enemy.receiveDamage(strength * getRandomInt(1, 3));
 };
 
 export default class Character implements Fighter {
@@ -86,11 +87,11 @@ export default class Character implements Fighter {
     return this._lifePoints > 0 ? this._lifePoints : -1;
   }
 
-  attack(enemy: Fighter): void {
+  attack(enemy: SimpleFighter): void {
     enemy.receiveDamage(this._strength);
   }
 
-  special(enemy: Fighter): void {
+  special(enemy: SimpleFighter): void {
     switch (this.archetype.name) {
       case 'Mage':
         if (this._energy.amount > 2) {
